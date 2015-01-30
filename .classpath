@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="AI"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+	<classpathentry kind="lib" path="jxl-2.6.jar"/>
+	<classpathentry kind="lib" path="selenium-java-2.29.0.jar"/>
+	<classpathentry kind="lib" path="selenium-java-2.29.0-srcs.jar"/>
+	<classpathentry kind="lib" path="selenium-server-2.29.0.jar"/>
+	<classpathentry kind="lib" path="selenium-server-2.29.0-srcs.jar"/>
+	<classpathentry kind="lib" path="selenium-server-standalone-2.29.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jxl"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/selenium-2.29.01"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jxl-2.61"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jxl-2.6"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/selenium-2.29.0"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Trash Routing"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

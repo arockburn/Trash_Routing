@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Trash Routing.iml" filepath="$PROJECT_DIR$/Trash Routing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Trash RoutingComplete.iml" filepath="$PROJECT_DIR$/Trash RoutingComplete.iml" />
+      <module fileurl="file://$PROJECT_DIR$/out/production/Trash RoutingComplete/jexcelapi/excelClassExceptionDebug.iml" filepath="$PROJECT_DIR$/out/production/Trash RoutingComplete/jexcelapi/excelClassExceptionDebug.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inherit-compiler-output="true" inheritJdk="true">
+	<output-test url="file://$MODULE_DIR$/../out/test/Trash Routing"/>
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="jxl-2.6.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/Trash Routing/jxl-2.6.jar!/"/>
+	</lib>
+	<lib name="selenium-java-2.29.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/Trash Routing/selenium-java-2.29.0.jar!/"/>
+	</lib>
+	<lib name="selenium-java-2.29.0-srcs.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/Trash Routing/selenium-java-2.29.0-srcs.jar!/"/>
+	</lib>
+	<lib name="selenium-server-2.29.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/Trash Routing/selenium-server-2.29.0.jar!/"/>
+	</lib>
+	<lib name="selenium-server-2.29.0-srcs.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/Trash Routing/selenium-server-2.29.0-srcs.jar!/"/>
+	</lib>
+	<lib name="selenium-server-standalone-2.29.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/Trash Routing/selenium-server-standalone-2.29.0.jar!/"/>
+	</lib>
+	<levels>
+		<level name="jxl" value="project"/>
+		<level name="selenium-2.29.01" value="project"/>
+		<level name="jxl-2.61" value="project"/>
+		<level name="jxl-2.6" value="project"/>
+		<level name="selenium-2.29.0" value="project"/>
+		<level name="Trash Routing" value="project"/>
+	</levels>
+</component>
