@@ -8,24 +8,25 @@ import java.util.*;
 
 public class QualityAssurance {
 	
-	private Scheduler s;
+//	private Scheduler s;
+	private LinkedList<String> finalSchedule;
 	private boolean isSolutionGood = false;
+	private int numDays;
 
 	/**
 	 * Constructor for base QualityAssurance instantiation
 	 * Has one variable that is a Scheduler which is used to access the final output of a run
 	 */
 	QualityAssurance(){
-		s = new Scheduler();
-	}
-	
-	public QualityAssurance(Scheduler scheduler){
-		s = scheduler;
+		finalSchedule = new LinkedList<String>();
+		numDays = 0;
 	}
 
-	public void setScheduler(Scheduler scheduler){
-		s = scheduler;
+	public QualityAssurance(LinkedList<String> schedule, int days){
+		finalSchedule = schedule;
+		numDays = days;
 	}
+
 
 	/**
 	 * Checks final results to make sure all calculations are correct and the results are within any deadlines
@@ -47,18 +48,18 @@ public class QualityAssurance {
 	 */
 	public boolean checkTimes() {
 		boolean areTimesGood = false;
-		double epsilon = .1;
+		double EPSIPLON = .1;
 
-		for(int i = 0; i < s.getNumDays(); i++){
+		for(int i = 0; i < this.numDays; i++){
 			double totalTime = 0;
-			String daySched = this.s.getFinalSchedule().get(i).toString();
+			String daySched = finalSchedule.get(i);
 			String[] sched = daySched.split("\n");
 			for(int j = 0; j < sched.length; j++){
-				if(j != 0 && j != 1 && j != sched.length - 2 && j != sched.length - 1){
+				if(j != sched.length - 2 && j != sched.length - 1){
 					String[] schedLine = sched[j].split(":");
 					double travelTime = Double.parseDouble(schedLine[4]);
-					//double binCollectionTime = Double.parseDouble(schedLine[6]);
-					totalTime += travelTime;
+					double binCollectionTime = Double.parseDouble(schedLine[6]);
+					totalTime += travelTime + binCollectionTime;
 				}
 			}
 
@@ -71,7 +72,7 @@ public class QualityAssurance {
 			}
 
 			double outputTotalTime = Double.parseDouble(sched[sched.length - 1]);
-			if(Math.abs(totalTime - outputTotalTime) < epsilon){
+			if(Math.abs(totalTime - outputTotalTime) < EPSIPLON){
 				areTimesGood = true;
 			}
 			else{
@@ -99,12 +100,12 @@ public class QualityAssurance {
 		LinkedList allDays = list.getWholeBook();
 		for(int i = 0; i < allDays.size() / 16; i++){
 			int freq = Integer.parseInt(allDays.get((i * 16) + 4).toString());
-			if(freq > s.getNumDays())
-				freq = s.getNumDays();
+			if(freq > numDays)
+				freq = numDays;
 			totalFreq += freq;
 			String pointName = allDays.get(i * 16).toString();
-			for(int j = 0; j < s.getNumDays(); j++) {
-				String daySched = this.s.getFinalSchedule().get(j).toString();
+			for(int j = 0; j < numDays; j++) {
+				String daySched = finalSchedule.get(j);
 				String[] sched = daySched.split("\n");
 				currentFreq += findNumOccurances(sched, pointName);
 			}
@@ -127,22 +128,22 @@ public class QualityAssurance {
 	 */
 	public boolean checkDistances(){
 		boolean areDistancesGood = false;
-		double roundOff = .1;
+		double EPSILON = .1;
 
-		for(int i = 0; i < s.getNumDays(); i++){
-			String daySched = this.s.getFinalSchedule().get(i).toString();
+		for(int i = 0; i < numDays; i++){
+			String daySched = finalSchedule.get(i);
 			String[] sched = daySched.split("\n");
-			double outputTotalTime = Double.parseDouble(sched[sched.length - 2]);
+			double outputTotalDistance = Double.parseDouble(sched[sched.length - 2]);
 			double calculatedTotalTime = 0;
 			for(int j = 0; j < sched.length; j++){
-				if(j != 0 && j != 1 && j != sched.length - 2 && j != sched.length - 1) {
+				if(j != sched.length - 2 && j != sched.length - 1) {
 					String[] schedLine = sched[j].split(":");
 					String timeForVisit = schedLine[2];
 					calculatedTotalTime += Double.parseDouble(timeForVisit);
 				}
 			}
 
-			if(Math.abs(calculatedTotalTime - outputTotalTime) < roundOff)
+			if(Math.abs(calculatedTotalTime - outputTotalDistance) < EPSILON)
 				areDistancesGood = true;
 			else{
 				areDistancesGood = false;
@@ -157,7 +158,7 @@ public class QualityAssurance {
 	private int findNumOccurances(String[] schedule, String pointName){
 		int cnt = 0;
 		for(int i = 0; i < schedule.length; i++){
-			if(i != 0 && i != 1 && i != schedule.length -2 && i != schedule.length -1) {
+			if(i != schedule.length -2 && i != schedule.length -1) {
 				String[] splitRoute = schedule[i].split(":");
 				if(pointName.equals("start spot")){
 					if(splitRoute[0].equals(pointName))

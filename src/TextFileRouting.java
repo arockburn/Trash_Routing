@@ -1054,14 +1054,8 @@ public class TextFileRouting
 						Label label = new Label(col, row, dayNames[i]);
 						sheet.addCell(label);
 					}
-					else if(j == 1){
-						inputStr = expandedSched[j];
-						Label label = new Label(col, row, inputStr);
-						sheet.addCell(label);
-					}
 					else if(j == expandedSched.length - 2 || j == expandedSched.length - 1){
 						inputStr = expandedSched[j];
-						String[] schedLine = expandedSched[j].split(":");
 						if(j == expandedSched.length - 2){
 							Label dist = new Label(col, row, "Total Distance");
 							sheet.addCell(dist);

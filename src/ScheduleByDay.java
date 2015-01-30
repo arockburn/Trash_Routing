@@ -5,14 +5,17 @@ import java.util.LinkedList;
  */
 public class ScheduleByDay {
 
+    int BREAK = 15;
+    int LUNCH = 30;
     int ITERATIONS = 3;
     int COLS = 16;
-    int days;
+    int DAYS;
     LinkedList[] dayPickupPoints;
     LinkedList[] daySchedule;
     LinkedList[] pickupPointsByDay;
     LinkedList[] dayRoutes;
     LinkedList[] finalRoutes;
+    LinkedList<String> returnableFinalSchedule = new LinkedList<String>();
     TextFileRouting tfr = new TextFileRouting();
     Scheduler scheduler = new Scheduler();
     LinkedLists allDays = new LinkedLists();
@@ -23,24 +26,25 @@ public class ScheduleByDay {
      */
     ScheduleByDay(Scheduler s){
         scheduler = s;
-        days = scheduler.getNumDays();
-        dayPickupPoints = new LinkedList[days];
-        daySchedule = new LinkedList[days];
-        pickupPointsByDay = new LinkedList[days];
-        dayRoutes = new LinkedList[days];
-        finalRoutes = new LinkedList[days];
+        DAYS = scheduler.getNumDays();
+        dayPickupPoints = new LinkedList[DAYS];
+        daySchedule = new LinkedList[DAYS];
+        pickupPointsByDay = new LinkedList[DAYS];
+        dayRoutes = new LinkedList[DAYS];
+        finalRoutes = new LinkedList[DAYS];
         loadAllPickupPoints();
         loadPointsToDays();
         createDayScheduleByPoints();
         finalRoutes = getNewRoutes();
         finalRoutes = findBestRoute(finalRoutes);
+        convertFinalSchedule(finalRoutes);
     }
 
     /**
      * Creates a schedule for each day based on the number of days in the requested schedule.
      */
     public void loadPointsToDays(){
-        for(int i = 0; i < days; i++){
+        for(int i = 0; i < DAYS; i++){
             decodeDays(dayPickupPoints[i]);
         }
 
@@ -65,7 +69,7 @@ public class ScheduleByDay {
      * Initialize the arrays that will be used by this class
      */
     private void initializeArrays(){
-        for(int i = 0; i < days; i++){
+        for(int i = 0; i < DAYS; i++){
             dayPickupPoints[i] = new LinkedList();
             daySchedule[i] = new LinkedList();
             pickupPointsByDay[i] = new LinkedList();
@@ -82,7 +86,7 @@ public class ScheduleByDay {
        for(int i = 0; i < dayPoints.size()/ COLS; i++){
            for(int j = 6; j < 12; j++){
                int code = getDayCode(String.valueOf(dayPoints.get((i * COLS) + j)));
-               if(code != -1 && code+1 <= days)
+               if(code != -1 && code+1 <= DAYS)
                    assignPointToDay(code, i* COLS, dayPoints);
            }
        }
@@ -135,7 +139,7 @@ public class ScheduleByDay {
     }
 
     private void createDayScheduleByPoints(){
-        for(int i = 0; i < days; i++){
+        for(int i = 0; i < DAYS; i++){
             for(int j = 0; j < daySchedule[i].size()/ COLS; j++){
                 pickupPointsByDay[i].addLast(daySchedule[i].get((j* COLS)+1));
             }
@@ -150,15 +154,15 @@ public class ScheduleByDay {
      */
 
     private LinkedList[] getNewRoutes(){
-        LinkedList[] routes = new LinkedList[days];
-        LinkedList[] namedRoutes = new LinkedList[days];
+        LinkedList[] routes = new LinkedList[DAYS];
+        LinkedList[] namedRoutes = new LinkedList[DAYS];
 
         for(int x = 0; x < routes.length; x++){
             routes[x] = new LinkedList();
             namedRoutes[x] = new LinkedList();
         }
 
-        for(int i = 0; i < days; i++) {
+        for(int i = 0; i < DAYS; i++) {
             LinkedList tempList = tfr.runRouteAlgorithm(pickupPointsByDay[i], i);
             for (int j = 0; j < tempList.size(); j++) {
                 routes[i].addLast(String.valueOf(tempList.get(j)));
@@ -209,6 +213,13 @@ public class ScheduleByDay {
 
             newList.addLast(newLine);
         }
+        if(listTime >= 120)
+            listTime += BREAK;
+        if(listTime >= 240)
+            listTime += LUNCH;
+        if(listTime >= 360)
+            listTime += BREAK;
+
         newList.addLast(listDistance);
         newList.addLast(listTime);
 
@@ -222,9 +233,9 @@ public class ScheduleByDay {
      * @return bestRoutes
      */
     private LinkedList[] findBestRoute(LinkedList[] currentBestRoutes){
-        LinkedList[] bestRoutes = new LinkedList[days];
-        LinkedList[] newRoutes = new LinkedList[days];
-        for(int i = 0; i < days; i++) {
+        LinkedList[] bestRoutes = new LinkedList[DAYS];
+        LinkedList[] newRoutes = new LinkedList[DAYS];
+        for(int i = 0; i < DAYS; i++) {
             bestRoutes[i] = new LinkedList();
             newRoutes[i] = new LinkedList();
             for (int j = 0; j < currentBestRoutes[i].size(); j++) {
@@ -232,20 +243,47 @@ public class ScheduleByDay {
             }
         }
 
+        /*
+        main loop that finds the best route for the schedule. Iterates x times where ITERATIONS is a constant declared at the top of this
+        class.
+        */
         for(int x = 0; x < ITERATIONS; x++){
             newRoutes = getNewRoutes();
-            for(int i = 0; i < days; i++) {
+            for(int i = 0; i < DAYS; i++) {
                 double currBestTime = Double.parseDouble(String.valueOf(bestRoutes[i].get(bestRoutes[i].size() - 1)));
                 double newBestTime = Double.parseDouble(String.valueOf(newRoutes[i].get(newRoutes[i].size() - 1)));
                 if(newBestTime < currBestTime){
+                    bestRoutes[i].clear();
                     for(int j = 0; j < newRoutes[i].size(); j++){
                         bestRoutes[i].add(j, newRoutes[i].get(j));
                     }
                 }
-                newRoutes[i] = new LinkedList();
+                newRoutes[i].clear();
             }
         }
 
         return bestRoutes;
+    }
+
+    /**
+     * Converts the linked list containing the best schedule to one linked list. It does this because the rest of the program
+     * is based off of having a schedule in one linked list, instead of in an array of linked lists like this class.
+     * @param schedToBeConverted a schedule in an array of linked lists. This should be the result of the findBestRoute function
+     */
+    private void convertFinalSchedule(LinkedList[] schedToBeConverted){
+        for(int i = 0; i < DAYS; i++){
+            String daySchedule = "";
+            for(int j = 0; j < schedToBeConverted[i].size(); j++){
+                if(j != schedToBeConverted[i].size() - 1)
+                    daySchedule += schedToBeConverted[i].get(j) + "\n";
+                else
+                    daySchedule += schedToBeConverted[i].get(j);
+            }
+            returnableFinalSchedule.addLast(daySchedule);
+        }
+    }
+
+    public LinkedList<String> getReturnableFinalSchedule(){
+        return returnableFinalSchedule;
     }
 }

@@ -37,23 +37,6 @@ public class Scheduler
 		//loads all combinations into a linked list
 		TextFileRouting combo = new TextFileRouting();
 		
-		//use the number of days the schedule is supposed to compute and run the appropriate comboAlgorithm
-		/*if(days == 6){
-			combinations = combo.comboAlgorithm(6);
-		}
-		if(days == 5){
-			combinations = combo.comboAlgorithm(5);
-		}
-		if(days == 4){
-			combinations = combo.comboAlgorithm(4);
-		}
-		if(days == 3){
-			combinations = combo.comboAlgorithm(3);
-		}
-		if(days == 2){
-			combinations = combo.comboAlgorithm(2);
-		}
-		if(days == 1){*/
 		combinations = combo.comboAlgorithm(days);
 	}
 	
@@ -261,7 +244,7 @@ public class Scheduler
 	
 	/**
 	 * Finds the next index location of the path that will be used in the schedule. This is going to be
-	 * the path with the shortest time, that will allow for all days to be used, that was not used in 
+	 * the path with the shortest time, that will allow for all days to be used, that was not used in
 	 * the last day, has the correct penalty assessment (MWF or TR), and is not a previously taboo move
 	 * that would yield in an undesirable result.
 	 * 
@@ -711,7 +694,7 @@ public class Scheduler
 		Scheduler schedule = new Scheduler();
 //		schedule.scheduleAlgorithm(days);
 		ScheduleByDay sbd = new ScheduleByDay(schedule);
-		QualityAssurance qa = new QualityAssurance(schedule);
+		QualityAssurance qa = new QualityAssurance(sbd.getReturnableFinalSchedule(), days);
 		boolean areResultsGood = qa.checkFinalOutput();
 		if(areResultsGood){
 			System.out.print("Results have passed the quality assurance check.\nPrinting to output file now...\n\n");
@@ -720,7 +703,7 @@ public class Scheduler
 			System.out.print("Results failed the quality assurance check.\nExiting program...\n\n");
 		if (areResultsGood) {
 			TextFileRouting print = new TextFileRouting();
-			print.printPath(schedule.finalSchedule);        //print the calculated routes
+			print.printPath(sbd.getReturnableFinalSchedule());        //print the calculated routes
 			System.out.print("File written successfully.\nExiting program now...\n\n");
 		}
 	}
