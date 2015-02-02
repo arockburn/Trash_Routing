@@ -7,9 +7,10 @@ public class ScheduleByDay {
 
     int BREAK = 15;
     int LUNCH = 30;
-    int ITERATIONS = 3;
+    int ITERATIONS = 5;
     int COLS = 16;
     int DAYS;
+    int ALLDAYS = 6;
     LinkedList[] dayPickupPoints;
     LinkedList[] daySchedule;
     LinkedList[] pickupPointsByDay;
@@ -27,7 +28,7 @@ public class ScheduleByDay {
     ScheduleByDay(Scheduler s){
         scheduler = s;
         DAYS = scheduler.getNumDays();
-        dayPickupPoints = new LinkedList[DAYS];
+        dayPickupPoints = new LinkedList[ALLDAYS];
         daySchedule = new LinkedList[DAYS];
         pickupPointsByDay = new LinkedList[DAYS];
         dayRoutes = new LinkedList[DAYS];
@@ -44,7 +45,7 @@ public class ScheduleByDay {
      * Creates a schedule for each day based on the number of days in the requested schedule.
      */
     public void loadPointsToDays(){
-        for(int i = 0; i < DAYS; i++){
+        for(int i = 0; i < ALLDAYS; i++){
             decodeDays(dayPickupPoints[i]);
         }
 
@@ -70,11 +71,13 @@ public class ScheduleByDay {
      */
     private void initializeArrays(){
         for(int i = 0; i < DAYS; i++){
-            dayPickupPoints[i] = new LinkedList();
             daySchedule[i] = new LinkedList();
             pickupPointsByDay[i] = new LinkedList();
             dayRoutes[i] = new LinkedList();
             finalRoutes[i] = new LinkedList();
+        }
+        for(int i = 0; i < ALLDAYS; i++){
+            dayPickupPoints[i] = new LinkedList();
         }
     }
 
