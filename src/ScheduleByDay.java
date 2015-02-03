@@ -1,3 +1,4 @@
+
 import java.util.LinkedList;
 
 /**
@@ -7,7 +8,7 @@ public class ScheduleByDay {
 
     int BREAK = 15;
     int LUNCH = 30;
-    int ITERATIONS = 5;
+    int ITERATIONS = 500;
     int COLS = 16;
     int DAYS;
     int ALLDAYS = 6;
@@ -61,7 +62,7 @@ public class ScheduleByDay {
         for(int i = 0; i < loadedDays.size()/COLS; i++){
             String freq = String.valueOf(loadedDays.get((i * COLS) + 4));
             for(int j = 0; j < COLS; j++){
-               dayPickupPoints[Integer.parseInt(freq)-1].addLast(loadedDays.get((i * COLS) + j));
+                dayPickupPoints[Integer.parseInt(freq)-1].addLast(loadedDays.get((i * COLS) + j));
             }
         }
     }
@@ -86,13 +87,22 @@ public class ScheduleByDay {
      * @param dayPoints
      */
     private void decodeDays(LinkedList dayPoints){
-       for(int i = 0; i < dayPoints.size()/ COLS; i++){
-           for(int j = 6; j < 12; j++){
-               int code = getDayCode(String.valueOf(dayPoints.get((i * COLS) + j)));
-               if(code != -1 && code+1 <= DAYS)
-                   assignPointToDay(code, i* COLS, dayPoints);
-           }
-       }
+        int previousCode = -2;
+        for(int i = 0; i < dayPoints.size()/ COLS; i++){
+            for(int j = 6; j < 12; j++){
+                int code = getDayCode(String.valueOf(dayPoints.get((i * COLS) + j)));
+                if(code != -1 && code+1 <= ALLDAYS) {
+                    if(code == 5 && DAYS < ALLDAYS){
+                        if(previousCode == 4)
+                            code = 3;
+                        else
+                            code = 4;
+                    }
+                    assignPointToDay(code, i * COLS, dayPoints);
+                    previousCode = code;
+                }
+            }
+        }
     }
 
     /**
@@ -290,3 +300,4 @@ public class ScheduleByDay {
         return returnableFinalSchedule;
     }
 }
+
