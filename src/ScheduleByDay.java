@@ -8,7 +8,7 @@ public class ScheduleByDay {
 
     int BREAK = 15;
     int LUNCH = 30;
-    int ITERATIONS = 500;
+    int ITERATIONS = 2;
     int COLS = 16;
     int DAYS;
     int ALLDAYS = 6;
@@ -319,21 +319,26 @@ public class ScheduleByDay {
     }
 
     private void assignToAnyDays(LinkedList<String> dayPoints) {
+        double gapChance;
+//        double incrementalGapChance = 1.0 / DAYS;
+        boolean prevDaySkipped = false;
         for(int i = 0; i < dayPoints.size()/COLS; i++){
             int freq = Integer.parseInt(dayPoints.get(i*COLS + 4));
             int gaps = DAYS - freq;
-            double gapChance = (gaps * 1.0) / freq;
-            double incrementalGapChance = 1.0 / DAYS;
             for(int j = 0; j < DAYS; j++){
-                if(gaps > 0){
+                if(gaps >= 1){
                     double chance = Math.random();
+                    gapChance = (j * 1.0) / freq;
                     boolean useGap = chance < gapChance;
+
                     if(!useGap){
                         assignPointToDay(j, i, dayPoints);
+                        prevDaySkipped = false;
                     }
                     else{
-                        gapChance += incrementalGapChance;
+//                        gapChance += incrementalGapChance;
                         gaps--;
+                        prevDaySkipped = true;
                     }
                 }
                 else{

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jxl">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/production/Trash RoutingComplete/jexcelapi/jxl.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
