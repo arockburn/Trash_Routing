@@ -26,7 +26,7 @@ public class Scheduler
 	private int threeUsedCount = 0;
 	private int fourUsedCount = 0;
 	private int fiveUsedCount = 0;
-	private static int days = 5; 	//this variable controls what schedule is printed when the program runs
+	private static int days = 6; 	//this variable controls what schedule is printed when the program runs
 	
 	/**
 	 * Loads the combinations linked list with all 14 possible combinations that will be used to

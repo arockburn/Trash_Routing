@@ -12,7 +12,7 @@ public class ScheduleByDay {
     int COLS = 16;
     int DAYS;
     int ALLDAYS = 6;
-    boolean stickToSelectedDays = true;
+    boolean stickToSelectedDays = false;
     LinkedList[] dayPickupPoints;
     LinkedList[] daySchedule;
     LinkedList[] pickupPointsByDay;
@@ -321,18 +321,19 @@ public class ScheduleByDay {
     private void assignToAnyDays(LinkedList<String> dayPoints) {
         for(int i = 0; i < dayPoints.size()/COLS; i++){
             int freq = Integer.parseInt(dayPoints.get(i*COLS + 4));
-            int gaps = ALLDAYS - freq;
-            float gapChance = gaps / freq;
-            float incrementalGapChance = 1 / ALLDAYS;
+            int gaps = DAYS - freq;
+            double gapChance = (gaps * 1.0) / freq;
+            double incrementalGapChance = 1.0 / DAYS;
             for(int j = 0; j < DAYS; j++){
                 if(gaps > 0){
                     double chance = Math.random();
-                    boolean useGap = chance > gapChance;
+                    boolean useGap = chance < gapChance;
                     if(!useGap){
                         assignPointToDay(j, i, dayPoints);
                     }
                     else{
                         gapChance += incrementalGapChance;
+                        gaps--;
                     }
                 }
                 else{
