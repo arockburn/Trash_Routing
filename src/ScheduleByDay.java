@@ -320,7 +320,6 @@ public class ScheduleByDay {
 
     private void assignToAnyDays(LinkedList<String> dayPoints) {
         double gapChance;
-//        double incrementalGapChance = 1.0 / DAYS;
         boolean prevDaySkipped = false;
         for(int i = 0; i < dayPoints.size()/COLS; i++){
             int freq = Integer.parseInt(dayPoints.get(i*COLS + 4));
@@ -330,13 +329,13 @@ public class ScheduleByDay {
                     double chance = Math.random();
                     gapChance = (j * 1.0) / freq;
                     boolean useGap = chance < gapChance;
+                    int availableDaysLeft = DAYS - i;
 
                     if(!useGap){
                         assignPointToDay(j, i, dayPoints);
                         prevDaySkipped = false;
                     }
                     else{
-//                        gapChance += incrementalGapChance;
                         gaps--;
                         prevDaySkipped = true;
                     }
@@ -346,6 +345,50 @@ public class ScheduleByDay {
                 }
             }
         }
+    }
+
+    private int[] daysToSchedulePoint(int frequency){
+        int[] pointSchedule = new int[DAYS];
+        int gaps = DAYS - frequency;
+        int daysAssigned = 0;
+        double gapChance;
+        boolean prevDaysSkipped = false;
+        boolean useGap = false;
+
+        for(int i = 0; i < DAYS; i++){
+            double chance = Math.random();
+            gapChance = (i * 1.0) / (DAYS - daysAssigned);
+            useGap = chance <= gapChance;
+
+            if(DAYS - i == frequency - daysAssigned)
+                useGap = false;
+            else if(prevDaysSkipped){
+                if(gaps == frequency - daysAssigned){
+                    useGap = false;
+                }
+                if(gaps > frequency - daysAssigned){
+                    useGap = true;
+                }
+                else if(gaps < frequency - daysAssigned){
+                    useGap = false;
+                }
+            }
+
+            if(useGap) {
+                pointSchedule[i] = 0;
+                prevDaysSkipped = true;
+                gaps--;
+            }
+            else {
+                pointSchedule[i] = 1;
+                prevDaysSkipped = false;
+                daysAssigned++;
+            }
+
+        }
+
+
+        return pointSchedule;
     }
 }
 
