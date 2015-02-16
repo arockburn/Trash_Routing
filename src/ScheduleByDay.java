@@ -319,29 +319,13 @@ public class ScheduleByDay {
     }
 
     private void assignToAnyDays(LinkedList<String> dayPoints) {
-        double gapChance;
-        boolean prevDaySkipped = false;
+        int[] assignmentSchedule = new int[DAYS];
         for(int i = 0; i < dayPoints.size()/COLS; i++){
-            int freq = Integer.parseInt(dayPoints.get(i*COLS + 4));
-            int gaps = DAYS - freq;
+            assignmentSchedule = daysToSchedulePoint((Integer.parseInt(String.valueOf(dayPoints.get(i + 4)))));
             for(int j = 0; j < DAYS; j++){
-                if(gaps >= 1){
-                    double chance = Math.random();
-                    gapChance = (j * 1.0) / freq;
-                    boolean useGap = chance < gapChance;
-                    int availableDaysLeft = DAYS - i;
-
-                    if(!useGap){
-                        assignPointToDay(j, i, dayPoints);
-                        prevDaySkipped = false;
-                    }
-                    else{
-                        gaps--;
-                        prevDaySkipped = true;
-                    }
-                }
-                else{
-                    assignPointToDay(j, i, dayPoints);
+                if(assignmentSchedule[j] == 1){
+                    for(int h = 0; h < COLS; h++)
+                        daySchedule[j].addLast(dayPoints.get(i + h));
                 }
             }
         }
@@ -351,43 +335,34 @@ public class ScheduleByDay {
         int[] pointSchedule = new int[DAYS];
         int gaps = DAYS - frequency;
         int daysAssigned = 0;
-        double gapChance;
+        double gapChance, assignChance;
         boolean prevDaysSkipped = false;
-        boolean useGap = false;
+        boolean assignDay;
 
-        for(int i = 0; i < DAYS; i++){
-            double chance = Math.random();
-            gapChance = (i * 1.0) / (DAYS - daysAssigned);
-            useGap = chance <= gapChance;
+        for(int i = 0; i < DAYS; i++) {
+            assignDay = false;
+            gapChance = gaps / DAYS;
+            assignChance = (frequency - daysAssigned) / DAYS;
+            double randGap = Math.random() * gapChance;
+            double randAssign = Math.random() * assignChance;
 
-            if(DAYS - i == frequency - daysAssigned)
-                useGap = false;
-            else if(prevDaysSkipped){
-                if(gaps == frequency - daysAssigned){
-                    useGap = false;
-                }
-                if(gaps > frequency - daysAssigned){
-                    useGap = true;
-                }
-                else if(gaps < frequency - daysAssigned){
-                    useGap = false;
-                }
+            if (randAssign > randGap)
+                assignDay = true;
+            if (randGap > randAssign)
+                assignDay = false;
+            if (randGap == randAssign){
+                if (gaps == 0)
+                    assignDay = true;
+                else
+                    assignDay = false;
             }
 
-            if(useGap) {
-                pointSchedule[i] = 0;
-                prevDaysSkipped = true;
-                gaps--;
-            }
-            else {
+            if(assignDay)
                 pointSchedule[i] = 1;
-                prevDaysSkipped = false;
-                daysAssigned++;
-            }
+            else
+                pointSchedule[i] = 0;
 
         }
-
-
         return pointSchedule;
     }
 }
