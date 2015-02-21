@@ -331,6 +331,11 @@ public class ScheduleByDay {
         }
     }
 
+    /**
+     * Chooses which days a point is to be scheduled to
+     * @param frequency
+     * @return
+     */
     private int[] daysToSchedulePoint(int frequency){
         int[] pointSchedule = new int[DAYS];
         int gaps = DAYS - frequency;
