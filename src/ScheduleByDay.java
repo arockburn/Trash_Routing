@@ -11,7 +11,7 @@ public class ScheduleByDay {
     int ITERATIONS = 2;
     int COLS = 16;
     int DAYS;
-    int ALLDAYS = 6;
+    public static final int ALLDAYS = 6;
     boolean stickToSelectedDays = false;
     LinkedList[] dayPickupPoints;
     LinkedList[] daySchedule;
@@ -39,20 +39,21 @@ public class ScheduleByDay {
         loadAllPickupPoints();
         if (stickToSelectedDays)
             loadPointsBySelectedDays();
-        else
-            loadPointsToAnyFit();
+//        else
+//            loadPointsToAnyFit();
         createDayScheduleByPoints();
         finalRoutes = getNewRoutes();
         finalRoutes = findBestRoute(finalRoutes);
         convertFinalSchedule(finalRoutes);
     }
 
+    /*
     private void loadPointsToAnyFit() {
         for (int i = ALLDAYS - 1; i >= 0; i--) {
             assignToAnyDays(dayPickupPoints[i]);
         }
     }
-
+*/
     /**
      * Creates a schedule for each day based on the number of days in the requested schedule.
      */
@@ -317,7 +318,7 @@ public class ScheduleByDay {
     public LinkedList<String> getReturnableFinalSchedule() {
         return returnableFinalSchedule;
     }
-
+/*
     private void assignToAnyDays(LinkedList<String> dayPoints) {
         int[] assignmentSchedule = new int[DAYS];
         for(int i = 0; i < dayPoints.size()/COLS; i++){
@@ -330,12 +331,13 @@ public class ScheduleByDay {
             }
         }
     }
-
+*/
     /**
      * Chooses which days a point is to be scheduled to
      * @param frequency
      * @return
      */
+    /*
     private int[] daysToSchedulePoint(int frequency){
         int[] pointSchedule = new int[DAYS];
         int gaps = DAYS - frequency;
@@ -370,5 +372,6 @@ public class ScheduleByDay {
         }
         return pointSchedule;
     }
+    */
 }
 
