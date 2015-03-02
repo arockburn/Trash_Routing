@@ -8,7 +8,7 @@ public class ScheduleByDay {
 
     int BREAK = 15;
     int LUNCH = 30;
-    int ITERATIONS = 2;
+    int ITERATIONS = 500;
     int COLS = 16;
     int DAYS;
     public static final int ALLDAYS = 6;
@@ -39,21 +39,20 @@ public class ScheduleByDay {
         loadAllPickupPoints();
         if (stickToSelectedDays)
             loadPointsBySelectedDays();
-//        else
-//            loadPointsToAnyFit();
+        else
+            loadPointsToAnyFit();
         createDayScheduleByPoints();
         finalRoutes = getNewRoutes();
         finalRoutes = findBestRoute(finalRoutes);
         convertFinalSchedule(finalRoutes);
     }
 
-    /*
+
     private void loadPointsToAnyFit() {
-        for (int i = ALLDAYS - 1; i >= 0; i--) {
-            assignToAnyDays(dayPickupPoints[i]);
-        }
+        ScheduleToAnyDay anyDay = new ScheduleToAnyDay(DAYS);
+        daySchedule = anyDay.assignPoints(dayPickupPoints, DAYS);
     }
-*/
+
     /**
      * Creates a schedule for each day based on the number of days in the requested schedule.
      */
@@ -318,60 +317,5 @@ public class ScheduleByDay {
     public LinkedList<String> getReturnableFinalSchedule() {
         return returnableFinalSchedule;
     }
-/*
-    private void assignToAnyDays(LinkedList<String> dayPoints) {
-        int[] assignmentSchedule = new int[DAYS];
-        for(int i = 0; i < dayPoints.size()/COLS; i++){
-            assignmentSchedule = daysToSchedulePoint((Integer.parseInt(String.valueOf(dayPoints.get(i + 4)))));
-            for(int j = 0; j < DAYS; j++){
-                if(assignmentSchedule[j] == 1){
-                    for(int h = 0; h < COLS; h++)
-                        daySchedule[j].addLast(dayPoints.get(i + h));
-                }
-            }
-        }
-    }
-*/
-    /**
-     * Chooses which days a point is to be scheduled to
-     * @param frequency
-     * @return
-     */
-    /*
-    private int[] daysToSchedulePoint(int frequency){
-        int[] pointSchedule = new int[DAYS];
-        int gaps = DAYS - frequency;
-        int daysAssigned = 0;
-        double gapChance, assignChance;
-        boolean prevDaysSkipped = false;
-        boolean assignDay;
-
-        for(int i = 0; i < DAYS; i++) {
-            assignDay = false;
-            gapChance = gaps / DAYS;
-            assignChance = (frequency - daysAssigned) / DAYS;
-            double randGap = Math.random() * gapChance;
-            double randAssign = Math.random() * assignChance;
-
-            if (randAssign > randGap)
-                assignDay = true;
-            if (randGap > randAssign)
-                assignDay = false;
-            if (randGap == randAssign){
-                if (gaps == 0)
-                    assignDay = true;
-                else
-                    assignDay = false;
-            }
-
-            if(assignDay)
-                pointSchedule[i] = 1;
-            else
-                pointSchedule[i] = 0;
-
-        }
-        return pointSchedule;
-    }
-    */
 }
 

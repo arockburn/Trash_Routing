@@ -11,17 +11,54 @@ public class ScheduleToAnyDay {
 
     ScheduleToAnyDay(int days){
         points = new LinkedList[days];
+        for(int i = 0; i < days; i++)
+            points[i] = new LinkedList();
         numDays = days;
     }
 
-    public void assignPoints(LinkedList[] pickupPoints, int numDays){
-        for(int i = ScheduleByDay.ALLDAYS - 1; i >= 0 ; i--){
-            assignToRandom(pickupPoints, i);
+    public LinkedList[] assignPoints(LinkedList[] pickupPoints, int numDays){
+        int[] pointSchedule = new int[numDays];
+        boolean evenDistribution = false;
+        while(!evenDistribution) {
+            for (int i = ScheduleByDay.ALLDAYS - 1; i >= 0; i--) {
+                for (int j = 0; j < pickupPoints[i].size() / 16; j++) {
+                    pointSchedule = assignToRandom(i + 1);
+                    for (int x = 0; x < numDays; x++) {
+                        if (pointSchedule[x] == 1) {
+                            for (int z = j * 16; z < (j + 1) * 16; z++) {
+                                points[x].addLast(pickupPoints[i].get(z));
+                            }
+                        }
+                    }
+                }
+            }
+
+            int[] stopCounts = new int[numDays];
+            for(int i = 0; i < points.length; i++){
+                stopCounts[i] = points[i].size()/16;
+            }
+            int max = 0;
+            int min = 50;
+            for(int i = 0; i < stopCounts.length; i++){
+                if(stopCounts[i] > max)
+                    max = stopCounts[i];
+
+                if(stopCounts[i] < min)
+                    min = stopCounts[i];
+            }
+
+            if(max - min <= 5)
+                evenDistribution = true;
+            else
+                for(int i = 0; i < points.length; i++)
+                    points[i] = new LinkedList();
         }
+
+        return points;
 
     }
 
-    private void assignToRandom(LinkedList[] p, int freq){
+    private int[] assignToRandom(int freq){
         int[] schedule = new int[numDays];
 
 
@@ -36,7 +73,7 @@ public class ScheduleToAnyDay {
             Random random = new Random();
 
             while(!doneScheduling){
-                if(daysScheduled == freq)
+                if(daysScheduled == numDays)
                     doneScheduling = true;
                 else if(period == 1){
                     if(extraDays >= 1){
@@ -103,5 +140,6 @@ public class ScheduleToAnyDay {
                 }
             }
         }
+        return schedule;
     }
 }
