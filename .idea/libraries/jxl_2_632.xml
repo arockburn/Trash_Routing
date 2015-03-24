@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jxl-2.63">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/production/Trash_Routing/Excel Files/jxl-2.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

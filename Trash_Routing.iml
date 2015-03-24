@@ -28,5 +28,14 @@
     <orderEntry type="library" name="jxl-2.61" level="project" />
     <orderEntry type="library" name="jxl-2.63" level="project" />
     <orderEntry type="library" name="Trash_Routing1" level="project" />
+    <orderEntry type="library" name="selenium-2.29.01" level="project" />
+    <orderEntry type="library" name="selenium-2.29.03" level="project" />
+    <orderEntry type="library" name="jxl-2.6" level="project" />
+    <orderEntry type="library" name="selenium-2.29.02" level="project" />
+    <orderEntry type="library" name="jxl-2.61" level="project" />
+    <orderEntry type="library" name="jxl-2.63" level="project" />
+    <orderEntry type="library" name="selenium-2.29.0" level="project" />
+    <orderEntry type="library" name="Trash_Routing1" level="project" />
+    <orderEntry type="library" name="jxl-2.62" level="project" />
   </component>
 </module>
