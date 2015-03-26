@@ -8,7 +8,7 @@ public class ScheduleByDay {
 
     int BREAK = 15;
     int LUNCH = 30;
-    int ITERATIONS = 500;
+    int ITERATIONS = 5;
     int COLS = 16;
     int DAYS;
     public static final int ALLDAYS = 6;

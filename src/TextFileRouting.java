@@ -441,6 +441,7 @@ public class TextFileRouting
 	private void routeAlgorithm(boolean permanentRoute, int dayOfWeek)
 	{
 		boolean firstBreak = false, secondBreak = false, lunchBreak = false;
+        Timing.resetStartTime();
 		loadPickupDistances("AI/ShortestPathFiles/Point No 01.txt");
 		loadPickupPaths("AI/ShortestPathFiles/Point No 01.txt");
 		parseIntoList();
@@ -1241,6 +1242,7 @@ public class TextFileRouting
 		totalTime = 0;
 		pickupPoints.clear();
 		prevStart.clear();
+        dayDistances.clear();
 
 		for(int i = 0; i < daySchedule.size(); i++){
 			pickupPoints.add(String.valueOf(daySchedule.get(i)));

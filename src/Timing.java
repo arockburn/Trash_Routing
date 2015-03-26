@@ -210,8 +210,7 @@ public class Timing {
 		return time;
 	} 
 	
-	
-	//TODO fix the issue in the 1 day route not giving a time 
+
 	public static LinkedList<String> getPenalty(double distance, int bins, 
 			boolean permanentRoute, int dayOfWeek, int buildingType,
 			int nearbyClassroomBuildings, int nearbyFoodBuildings) 

@@ -8,16 +8,16 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="jxl-2.6" level="project" />
-    <orderEntry type="library" name="selenium-2.29.03" level="project" />
-    <orderEntry type="library" name="Trash Routing" level="project" />
-    <orderEntry type="library" name="selenium-2.29.02" level="project" />
-    <orderEntry type="library" name="selenium-2.29.0" level="project" />
-    <orderEntry type="library" name="jxl-2.62" level="project" />
     <orderEntry type="library" name="selenium-2.29.01" level="project" />
-    <orderEntry type="library" name="jxl-2.63" level="project" />
+    <orderEntry type="library" name="selenium-2.29.0" level="project" />
     <orderEntry type="library" name="selenium-2.29.04" level="project" />
+    <orderEntry type="library" name="Trash Routing" level="project" />
+    <orderEntry type="library" name="jxl-2.62" level="project" />
+    <orderEntry type="library" name="selenium-2.29.03" level="project" />
+    <orderEntry type="library" name="selenium-2.29.02" level="project" />
+    <orderEntry type="library" name="jxl-2.6" level="project" />
     <orderEntry type="library" name="jxl-2.61" level="project" />
+    <orderEntry type="library" name="jxl-2.63" level="project" />
     <orderEntry type="library" name="jxl-2.64" level="project" />
   </component>
 </module>
