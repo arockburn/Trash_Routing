@@ -1,12 +1,8 @@
 <component name="libraryTable">
-  <library name="Trash_Routing">
+  <library name="Trash Routing">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/selenium-server-2.29.0-srcs.jar!/" />
-      <root url="jar://$PROJECT_DIR$/selenium-server-2.29.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/selenium-java-2.29.0-srcs.jar!/" />
-      <root url="jar://$PROJECT_DIR$/selenium-java-2.29.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/selenium-server-standalone-2.29.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/jxl-2.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Trash Routing/poi-src-3.9-20121203.zip!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Trash Routing/jexcelapi_2_6_12.zip!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

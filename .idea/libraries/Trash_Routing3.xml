@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Trash_Routing">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/production/Trash_Routing/poi-src-3.9-20121203.zip!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/Trash_Routing/jexcelapi_2_6_12.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
