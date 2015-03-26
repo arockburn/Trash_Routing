@@ -8,7 +8,7 @@ public class ScheduleByDay {
 
     int BREAK = 15;
     int LUNCH = 30;
-    int ITERATIONS = 5;
+    int ITERATIONS = 500;
     int COLS = 16;
     int DAYS;
     public static final int ALLDAYS = 6;
@@ -218,27 +218,34 @@ public class ScheduleByDay {
         for (int i = 0; i < list.size(); i++) {
             String listLine = String.valueOf(list.get(i));
             String[] splitListLine = listLine.split(":");
-            String firstStop = splitListLine[0];
-            String secondStop = splitListLine[1];
+            if(splitListLine.length > 1) {
+                String firstStop = splitListLine[0];
+                String secondStop = splitListLine[1];
 
-            int firstStopIndex = routeBook.indexOf(firstStop) - 1;
-            int secondStopIndex = routeBook.indexOf(secondStop) - 1;
+                int firstStopIndex = routeBook.indexOf(firstStop) - 1;
+                int secondStopIndex = routeBook.indexOf(secondStop) - 1;
 
-            String firstStopName = String.valueOf(routeBook.get(firstStopIndex));
-            String secondStopName = String.valueOf(routeBook.get(secondStopIndex));
-            splitListLine[0] = firstStopName;
-            splitListLine[1] = secondStopName;
+                String firstStopName = String.valueOf(routeBook.get(firstStopIndex));
+                String secondStopName = String.valueOf(routeBook.get(secondStopIndex));
+                splitListLine[0] = firstStopName;
+                splitListLine[1] = secondStopName;
 
-            listDistance += Double.parseDouble(splitListLine[2]);
-            listTime += Double.parseDouble(splitListLine[4]) + Double.parseDouble(splitListLine[6]);
+                listDistance += Double.parseDouble(splitListLine[2]);
+                listTime += Double.parseDouble(splitListLine[4]);
+            }
 
             String newLine = "";
             for (int j = 0; j < splitListLine.length; j++) {
-                if (j != splitListLine.length - 1)
-                    newLine += splitListLine[j] + ":";
+                if(splitListLine.length > 1) {
+                    if (j != splitListLine.length - 1)
+                        newLine += splitListLine[j] + ":";
+                    else
+                        newLine += splitListLine[j];
+                }
                 else
-                    newLine += splitListLine[j];
+                    newLine = splitListLine[0];
             }
+
 
             newList.addLast(newLine);
         }

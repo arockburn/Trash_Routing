@@ -57,9 +57,10 @@ public class QualityAssurance {
 			for(int j = 0; j < sched.length; j++){
 				if(j != sched.length - 2 && j != sched.length - 1){
 					String[] schedLine = sched[j].split(":");
-					double travelTime = Double.parseDouble(schedLine[4]);
-					double binCollectionTime = Double.parseDouble(schedLine[6]);
-					totalTime += travelTime + binCollectionTime;
+                    if(schedLine.length != 1) {
+                        double travelTime = Double.parseDouble(schedLine[4]);
+                        totalTime += travelTime;
+                    }
 				}
 			}
 
@@ -138,8 +139,10 @@ public class QualityAssurance {
 			for(int j = 0; j < sched.length; j++){
 				if(j != sched.length - 2 && j != sched.length - 1) {
 					String[] schedLine = sched[j].split(":");
-					String timeForVisit = schedLine[2];
-					calculatedTotalTime += Double.parseDouble(timeForVisit);
+                    if(schedLine.length > 1) {
+                        String timeForVisit = schedLine[2];
+                        calculatedTotalTime += Double.parseDouble(timeForVisit);
+                    }
 				}
 			}
 
@@ -164,7 +167,7 @@ public class QualityAssurance {
 					if(splitRoute[0].equals(pointName))
 						cnt++;
 				}
-				else if (splitRoute[1].equals(pointName))
+				else if (splitRoute.length != 1 && splitRoute[1].equals(pointName))
 					cnt++;
 			}
 		}

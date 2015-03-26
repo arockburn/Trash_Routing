@@ -489,14 +489,17 @@ public class TextFileRouting
 				if(totalTime > 120 && !firstBreak){
 					totalTime += 15;
 					firstBreak = true;
+                    finalPath.addLast("15 MINUTE BREAK");
 				}
 				if(totalTime > 240 && !lunchBreak){
 					totalTime += 30;
 					lunchBreak = true;
+                    finalPath.addLast("30 MINUTE LUNCH");
 				}
 				if(totalTime > 360 && !secondBreak){
 					totalTime += 15;
 					secondBreak = true;
+                    finalPath.addLast("15 MINUTE BREAK");
 				}
 				addToFinal();
 				prevStart.addLast(endPoint);
@@ -1225,7 +1228,7 @@ public class TextFileRouting
 		finalPath.addLast(firstPoint + ":" + secondPoint + ":" + (double)Math.round(dayDistances.get(0) * 10000) / 10000
 				+ ":" + (double)Math.round(((dayDistances.get(0) / Timing.getTruckSpeed()) * 60) * 10000) / 10000
 				+ ":" + (double)Math.round(times.get(0) * 10000) / 10000 + ":" + bins.get(0) + ":"
-				+ binServiceTime.get(0) + ":" + (stopTime.get(0) + dayDistances.get(0) / Timing.getTruckSpeed())
+				+ binServiceTime.get(0) + ":" + (stopTime.get(0)/* + dayDistances.get(0) / Timing.getTruckSpeed()*/)
 				+ ":" + startTime.get(0) + ":" + penalty.get(0));
 	}
 
