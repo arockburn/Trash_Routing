@@ -1036,14 +1036,15 @@ public class TextFileRouting
 	 *
 	 * @param list
 	 */
-	public void printPath(LinkedList list)
+	public void printPath(LinkedList list, int iterations, int numDays)
 	{
 		String[] dayNames = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 		int row = 0;
 		int col = 0;
 		int pointCnt = 0;
 
-		String fileName = "output/FinalOutput.xls";
+
+		String fileName = "output/FinalOutput_" + iterations + "_iter_" + numDays + "_days.xls";
 		try {
 			WritableWorkbook workbook = Workbook.createWorkbook(new File(fileName));
 			WritableSheet sheet = workbook.createSheet("FinalOutput", 0);

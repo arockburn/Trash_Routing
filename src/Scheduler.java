@@ -702,8 +702,10 @@ public class Scheduler
 		else
 			System.out.print("Results failed the quality assurance check.\nExiting program...\n\n");
 		if (areResultsGood) {
+            int iterations = sbd.getNumIterations();
+            int days = sbd.getNumDays();
 			TextFileRouting print = new TextFileRouting();
-			print.printPath(sbd.getReturnableFinalSchedule());        //print the calculated routes
+			print.printPath(sbd.getReturnableFinalSchedule(), iterations, days);        //print the calculated routes
 			System.out.print("File written successfully.\nExiting program now...\n\n");
 		}
 	}

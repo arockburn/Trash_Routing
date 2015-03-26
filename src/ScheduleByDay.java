@@ -12,7 +12,7 @@ public class ScheduleByDay {
     int COLS = 16;
     int DAYS;
     public static final int ALLDAYS = 6;
-    boolean stickToSelectedDays = false;
+    boolean stickToSelectedDays = true;
     LinkedList[] dayPickupPoints;
     LinkedList[] daySchedule;
     LinkedList[] pickupPointsByDay;
@@ -45,6 +45,14 @@ public class ScheduleByDay {
         finalRoutes = getNewRoutes();
         finalRoutes = findBestRoute(finalRoutes);
         convertFinalSchedule(finalRoutes);
+    }
+
+    public int getNumIterations(){
+        return this.ITERATIONS;
+    }
+
+    public int getNumDays(){
+        return this.DAYS;
     }
 
 
